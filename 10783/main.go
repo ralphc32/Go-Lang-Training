@@ -9,20 +9,20 @@ func main() {
 	// 	z += i
 	// }
 	// fmt.Printf("The sum is %v", x)
-	var x, a, b, sum int
+	var x, a, b int
 
 	fmt.Scan(&x)
 
 	for i := 1; i <= x; i++ {
 
-		sum = 0
+		sum := 0
 		fmt.Scan(&a, &b)
 
-		for j := 1; j <= b; j++ {
+		for j := a; j <= b; j++ {
 			if j%2 == 1 {
 				sum += j
 			}
 		}
-		fmt.Printf("Case %d: %d\n", i, sum)
+		fmt.Printf("Case %v: %v\n", i, sum)
 	}
 }
