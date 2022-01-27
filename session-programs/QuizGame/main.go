@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"strings"
 )
 
 func main() {
@@ -24,7 +25,7 @@ func main() {
 		var ans string
 		fmt.Printf("%s = ", item[0])
 		fmt.Scan(&ans)
-		if ans == item[1] {
+		if ans == strings.TrimLeft(item[1], " ") {
 			fmt.Println("Correct!")
 		}
 	}
