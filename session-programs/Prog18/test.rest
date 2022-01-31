@@ -1,0 +1,8 @@
+# Test 1
+# GET http://localhost:8080/
+
+# Test 1
+# GET http://localhost:8080/?q=1+1
+
+# Test 1
+GET http://localhost:8080/?q=hello&p=jack
