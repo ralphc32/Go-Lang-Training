@@ -2,29 +2,40 @@ package main
 
 import (
 	"fmt"
+	"os"
 	"strings"
 )
 
 func main() {
-	input := "betty bought the butter , the butter was bitter , " +
-		"betty bought more butter to make the bitter butter better "
-	for index, element := range repetition(input) {
-		fmt.Printf("%v %d\n", index, element)
+
+	ch := make(chan map[string]int)
+	for _, input := range os.Args[1:] {
+		go WordCount(input, ch)
+	}
+	for range os.Args[1:] {
+		for x, y := range <-ch {
+			fmt.Printf("%v %d\n", x, y)
+		}
 	}
 }
 
-func repetition(st string, ch chan string) map[string]int {
+func WordCount(a string, ch chan map[string]int) {
 
-	// using strings.Field Function
-	input := strings.Fields(st)
-	wc := make(map[string]int)
-	for _, word := range input {
-		_, matched := wc[word]
-		if matched {
-			wc[word] += 1
+	text := strings.Fields(a)
+
+	// create map variable
+	per_text := make(map[string]int)
+
+	// evaluate input as individual text and count words
+	for _, words := range text {
+		_, condition := per_text[words]
+		if condition {
+			per_text[words] += 1
 		} else {
-			wc[word] = 1
+			per_text[words] = 1
 		}
 	}
-	ch <- fmt.Printf("%v %d\n", index, element)
+
+	// store map into channel
+	ch <- per_text
 }
