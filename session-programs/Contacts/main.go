@@ -81,5 +81,28 @@ func (db *Database) processID(id int, w http.ResponseWriter, r *http.Request) {
 		} else {
 			fmt.Fprintln(w, "{\"status\":unsuccessful}")
 		}
+	case "PUT":
+		exists := false
+		db.mu.Lock()
+		for x, item := range db.recs {
+			if id == item.ID {
+				db.recs = append(db.recs[:x], db.recs[x+1:]...)
+				exists = true
+				var rec Record
+				if err := json.NewDecoder(r.Body).Decode(&rec); err != nil {
+					http.Error(w, err.Error(), http.StatusBadRequest)
+					return
+				}
+				db.recs = append(db.recs, rec)
+				break
+			}
+		}
+		db.mu.Unlock()
+		w.Header().Set("Content-Type", "application/json")
+		if exists {
+			fmt.Fprintln(w, "{\"status\":successful}")
+		} else {
+			fmt.Fprintln(w, "{\"status\":unsuccessful}")
+		}
 	}
 }

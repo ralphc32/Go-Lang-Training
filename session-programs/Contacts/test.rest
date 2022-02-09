@@ -1,15 +1,28 @@
 # Test 1
-GET http://localhost:8080/store 
+GET http://localhost:8080/contacts 
 
 # Test 2
-# POST http://localhost:8080/store 
+# POST http://localhost:8080/contacts 
 
-# { "name" : "Fred" }
+# { "LastName" : "De Leon", 
+#     "FirstName": "Joan", 
+#     "Company_Add": "Amsterdam", 
+#     "Country": "Netherlands", 
+#     "Position": "ForeignKeys"}
 
 # Test 3
-# POST http://localhost:8080/store 
+# POST http://localhost:8080/contacts 
 
-# { "name" : "Kyle" }
+# { "name" : "Joan" }
 
-# Test 3
-# DELETE http://localhost:8080/store/1
+# Test 4
+# DELETE http://localhost:8080/contacts/0
+
+# Test 5 
+# PUT http://localhost:8080/contacts/0 
+
+# { "LastName" : "Dela Cruz", 
+#     "FirstName": "Juan", 
+#     "Company_Add": "Amsterdam", 
+#     "Country": "Netherlands", 
+#     "Position": "ForeignKeys"}
