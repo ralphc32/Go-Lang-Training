@@ -1,0 +1,15 @@
+# Test 1
+GET http://localhost:8080/store 
+
+# Test 2
+# POST http://localhost:8080/store 
+
+# { "name" : "Fred" }
+
+# Test 3
+# POST http://localhost:8080/store 
+
+# { "name" : "Kyle" }
+
+# Test 3
+# DELETE http://localhost:8080/store/1
