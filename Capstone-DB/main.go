@@ -10,13 +10,13 @@ import (
 	_ "github.com/go-sql-driver/mysql"
 )
 
-type Customer struct {
-	ID        int    `json:"id"`
-	Cust_Name string `json:"Customer_Name"`
-	City_Name string `json:"City"`
+type Link struct {
+	ID         int    `json:"id"`
+	Links      string `json:"Links"`
+	Date_Added string `json:"DATE_ADDED"`
 }
 
-func retrieveData() []*Customer {
+func retrieveData() []*Link {
 	db, err := sql.Open("mysql", "default_user:1234@tcp(db:3306)/list_db")
 
 	if err != nil {
@@ -25,26 +25,26 @@ func retrieveData() []*Customer {
 
 	defer db.Close()
 
-	output, err := db.Query("SELECT * FROM DIM_CUSTOMER")
+	output, err := db.Query("SELECT * FROM DIM_LYRICS")
 
 	if err != nil {
 		panic(err)
 	}
 
-	var customers []*Customer
+	var links []*Link
 
 	for output.Next() {
-		var u Customer
+		var u Link
 
-		err = output.Scan(&u.ID, &u.Cust_Name, &u.City_Name)
+		err = output.Scan(&u.ID, &u.Links, &u.Date_Added)
 		if err != nil {
 			panic(err)
 		}
 
-		customers = append(customers, &u)
+		links = append(links, &u)
 	}
 
-	return customers
+	return links
 }
 
 func homePage(w http.ResponseWriter, r *http.Request) {
@@ -52,15 +52,15 @@ func homePage(w http.ResponseWriter, r *http.Request) {
 	fmt.Printf("Accessed homepage")
 }
 
-func ViewCustomers(w http.ResponseWriter, r *http.Request) {
-	customers := retrieveData()
+func ViewLinks(w http.ResponseWriter, r *http.Request) {
+	links := retrieveData()
 
 	fmt.Println("Accessed View")
-	json.NewEncoder(w).Encode(customers)
+	json.NewEncoder(w).Encode(links)
 }
 
 func main() {
 	http.HandleFunc("/", homePage)
-	http.HandleFunc("/customers", ViewCustomers)
+	http.HandleFunc("/links", ViewLinks)
 	log.Fatal(http.ListenAndServe(":8081", nil))
 }

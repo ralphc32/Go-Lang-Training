@@ -1,13 +1,13 @@
-CREATE TABLE `DIM_CUSTOMER`
+CREATE TABLE `DIM_LYRICS`
 (
     id int auto_increment,
-    Customer_Name varchar(200) NOT NULL, 
-    City varchar(150) NOT NULL, 
+    Links varchar(200) NOT NULL, 
+    DATE_ADDED CURRENT_TIMESTAMP,
     PRIMARY KEY (`id`)
 ); 
 
-LOAD DATA LOCAL INFILE '/input/sample.csv' 
-INTO TABLE DIM_CUSTOMER 
+LOAD DATA LOCAL INFILE '/input/lyrics.csv' 
+INTO TABLE DIM_LYRICS 
 FIELDS TERMINATED BY ',' 
 ENCLOSED BY '"'
 LINES TERMINATED BY '\n'
